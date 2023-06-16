@@ -3,11 +3,11 @@ import axios from "axios";
 const setAuthToken = token => {
 
   if (token) {
-    // Apply authorization token to every request if logged in
+    // Appliquer un token d'autorisation à chaque demande si l'utilisateur est connecté
     axios.defaults.headers.common["Authorization"] = token;
   } 
   else {
-    // Delete auth header
+    // Supprimer l'en-tête "auth"
     delete axios.defaults.headers.common["Authorization"];
   }
   

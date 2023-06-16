@@ -67,14 +67,14 @@ function stableSort(array, comparator) {
 // each element is an object containing that header cell's properties
 const headCells = [
   { id: 's_no', numeric: false, disablePadding: false, label: 'S. No.' },
-  { id: 'student_name', numeric: false, disablePadding: false, label: 'Name' },
+  { id: 'student_name', numeric: false, disablePadding: false, label: 'Nom' },
   { id: 'student_email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'tab_change_count', numeric: true, disablePadding: false, label: 'Tab Changes' },
-  { id: 'key_press_count', numeric: true, disablePadding: false, label: 'Prohibited Key Press' },
-  { id: 'face_not_visible', numeric: false, disablePadding: false, label: 'Face Not Visible' },
-  { id: 'multiple_faces_found', numeric: false, disablePadding: false, label: 'Multiple Faces Detected' },
-  { id: 'mobile_found', numeric: false, disablePadding: false, label: 'Mobile Found' },
-  { id: 'prohibited_object_found', numeric: false, disablePadding: false, label: 'Prohibited Object Found' },
+  { id: 'tab_change_count', numeric: true, disablePadding: false, label: "Changemennt d'activité" },
+  { id: 'key_press_count', numeric: true, disablePadding: false, label: 'Touches interdites détectée' },
+  { id: 'face_not_visible', numeric: false, disablePadding: false, label: 'Visage pas Visible' },
+  { id: 'multiple_faces_found', numeric: false, disablePadding: false, label: 'Multiple visages détecter' },
+  { id: 'mobile_found', numeric: false, disablePadding: false, label: 'Téléphone détecté' },
+  { id: 'prohibited_object_found', numeric: false, disablePadding: false, label: 'Objets interdits détectés' },
 ];
 
 /**
@@ -204,24 +204,23 @@ export default function LogsTable(props) {
   const [searched, setSearched] = React.useState("");
 
 
-  /**
-   * Gets student logs from the server using the exam code and professor's email
-   * and updates the table
-   * 
+   /**
+   * Récupère les logs des étudiants depuis le serveur en utilisant le code de l'examen et l'email du professeur.
+   * et met à jour la table
    */
   const getData=async ()=>{
     try {
-      // check if exam code is valid and it is one of professor's exams
+      // vérifier que le code de l'examen est valide et qu'il s'agit d'un des examens du professeur
       axios.get('/api/exams/examsByProf?exam_code='+exam_code+'&prof_email='+props.prof_email)
       .then(function (response) {
           console.log(response);
-          // exam code valid, and permission is there so let it pass through
+          // le code d'examen est valide et la permission est là, alors laissez-le passer
       })
       .catch(function (err) {
           console.log(err);
-          // either exam code invalid or its not this professor's exam
+          // soit le code de l'examen n'est pas valide, soit il ne s'agit pas de l'examen de ce professeur
           setErrorText("Either exam code is invalid or you dont have permission");
-          // clear table and make it invisible.
+          // effacer la table et la rendre invisible.
           setVisibility(false);
           setTableData([]);
           setRows([]);
@@ -233,7 +232,7 @@ export default function LogsTable(props) {
       setVisibility(true);
       
       var curr_logs=[];
-      // loop over the response and store it in the state
+      // boucle sur la réponse et la stocke dans dans le state mamnager
       for(var i=0;i<response.data.length;i++){
       
         var obj=new Object();
@@ -283,13 +282,13 @@ export default function LogsTable(props) {
   };
   
   /**
-   * Filters rows based on the search string present in name or email of the student
+   * Filtre les lignes en fonction de la chaîne de recherche présente dans le nom ou l'e-mail de l'étudiant.
    * @param {String} searchVal 
    */
   const requestSearch=(searchVal)=>{
   
     const filteredRows=TableData.filter((row)=>{
-      // for each row of data check if name or email contains the search string
+      // pour chaque ligne de données, vérifier si le nom ou l'adresse électronique contient la chaîne de recherche
       if(row.student_name.toLowerCase().includes(searchVal.toLowerCase()) || row.student_email.toLowerCase().includes(searchVal.toLowerCase())) {
         
         return true;
@@ -301,7 +300,7 @@ export default function LogsTable(props) {
 
   }
   /**
-   * Cancels the search and sets the whole table to original position
+   * Annule la recherche et remet l'ensemble du tableau à sa position initiale.
    */
   const cancelSearch=()=>{
     setSearched("");
@@ -321,7 +320,7 @@ export default function LogsTable(props) {
       margin="dense"
       variant="standard"
       id="exam_code"
-      label="Exam Code"
+      label="Code examen"
       type="text"
       required={true}
       value={exam_code}
@@ -330,7 +329,7 @@ export default function LogsTable(props) {
 
     <button
       style={{
-        width: "200px",
+        width: "300px",
         borderRadius: "3px",
         letterSpacing: "1.5px",
         marginLeft:"10px",
@@ -339,7 +338,7 @@ export default function LogsTable(props) {
       onClick={getData}
       className="btn btn-large waves-effect waves-light hoverable blue accent-3"
     >
-      Check Logs
+      Verifier les logs
     </button>
 
     <br/>

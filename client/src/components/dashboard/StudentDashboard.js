@@ -15,14 +15,14 @@ function StudentDashboard(props) {
     const history = useHistory();
 
     /**
-     * This function is called when student enters exam code to start the exam
-     * It checks the exam code, if invalid it displays error
-     * If valid, it uses the start time and duration to find if exam is running or not
-     * If running it allows student to enter, else displays error
+         * Cette fonction est appelée lorsque l'étudiant entre le code de l'examen pour commencer l'examen.
+         * Elle vérifie le code de l'examen, si celui-ci n'est pas valide, elle affiche une erreur.
+         * Si le code est valide, elle utilise l'heure de début et la durée pour déterminer si l'examen est en cours ou non.
+         * Si l'examen est en cours, elle permet à l'étudiant d'entrer, sinon elle affiche une erreur.
      */
     function checkExamCode(){
 
-        // send exam code to server
+        // envoyer le code d'examen au serveur
         axios.get('/api/exams/examByCode?exam_code='+exam_code)
         .then(function (response) {
             // if exam code is right
@@ -32,16 +32,16 @@ function StudentDashboard(props) {
             const exam_date_time_end = moment(exam_date_time_start).add(response.data.duration, 'm').toDate();
             const curr_date_time = new Date();
 
-            // if exam has begun but not ended, then allow user to enter
+            // si l'examen a commencé mais n'est pas terminé, permettre à l'utilisateur de s'inscrire
             if(curr_date_time >= exam_date_time_start && curr_date_time < exam_date_time_end){
                 
-              // calculate time remaining
+              // calculer le temps restant
                 var diff = Math.abs(exam_date_time_end - curr_date_time);
                 var diff_mins = Math.floor((diff/1000)/60);
                 var diff_secs = Math.floor(diff/1000)%60;
                 console.log(diff, diff_mins, diff_secs);
                 setError("Starting exam");
-                // pass data to exam page and start the exam
+                // transmettre les données à la page d'examen et démarrer l'examen
                 let data={
                     exam_code: exam_code,
                     student_name: props.name,
@@ -58,21 +58,21 @@ function StudentDashboard(props) {
                  
             }
 
-            // if current time is after exam end time, show error
+            // si l'heure actuelle est postérieure à l'heure de fin de l'examen, afficher une erreur
             else if(curr_date_time >= exam_date_time_end){
-                setError("Exam has already ended");
+                setError("L'Examen est déja terminé");
             }
 
-            // if current time is before exam start, show error
+            // si l'heure actuelle est antérieure au début de l'examen, afficher l'erreur
             else {
-                setError("Exam has not started now");
+                setError("L'examen n'a pas encore démarré");
             }
           })
 
           .catch(function (error) {
-            // if exam code is invalid show error
+            // Si le code d'examen n'est pas valide, afficher l'erreur
             console.log(error);
-            setError("Exam code is invalid");
+            setError("Code examen invalide");
           });
     }
 
@@ -81,9 +81,9 @@ function StudentDashboard(props) {
           <div className="row">
             <div className="col s12 center-align">
               <h4>
-                <b>Hey there,</b> {props.name.split(" ")[0]}
+                <b>Bonjour,</b> {props.name.split(" ")[0]}
                 <p className="flow-text grey-text text-darken-1">
-                  Please enter the Exam Code to start the exam
+                  Entrer le code de l'examen et Démarrer votre examen
                 </p>
               </h4>
                 <TextField
@@ -100,16 +100,17 @@ function StudentDashboard(props) {
                 />
               <button
                 style={{
-                  width: "200px",
+                  width: "250px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
                   marginTop: "1rem",
-                  marginLeft:"1rem"
+                  marginLeft:"1rem",
+                  borderRadius: "25px"
                 }}
                 onClick={checkExamCode}
                 className="btn btn-large waves-effect waves-light hoverable blue accent-3"
               >
-                Start Exam
+                Démarrer l'Examen
               </button>
               <button
                 style={{
@@ -117,12 +118,13 @@ function StudentDashboard(props) {
                   borderRadius: "3px",
                   letterSpacing: "1.5px",
                   marginTop: "1rem",
-                  marginLeft:"1rem"
+                  marginLeft:"1rem",
+                  borderRadius: "25px"
                 }}
                 onClick={props.logoutUser}
-                className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+                className="btn btn-large waves-effect waves-light hoverable red accent-3"
               >
-                Logout
+                Déconnecter
               </button>
               <br/>
               <p style={{ color: "red" }}>{error}</p>

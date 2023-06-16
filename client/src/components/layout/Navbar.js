@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import logo from './logo_app.png';
 /**
- * Creates the navbar that sticks to the top and is present on
- * all pages
+ * Crée la barre de navigation qui est collée en haut et présente sur
+ * toutes les pages
  */
 export default function Navbar() {
   return (
@@ -18,10 +18,12 @@ export default function Navbar() {
           }}
           className="col s5 brand-logo center black-text"
         >
-          <i className="material-icons">computer</i>
-          PROCTO
-        </Link>
-      </div>
+          <img src={logo} alt="Logo" />
+          <br>
+          </br>
+          {/* Face School Tracking */}
+        </Link>        
+      </div>      
     </nav>
   </div>
   );

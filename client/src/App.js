@@ -15,35 +15,38 @@ import Login from "./components/auth/Login";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "./components/dashboard/Dashboard";
 import TestPage from "./components/exam_page/TestPage";
+import GlobalStyle from './globalStyles';
 
-// Check for token to keep user logged in
+
+// Vérification de la présence du token en permettant à l'utilisateur de rester connecté
 if (localStorage.jwtToken) {
-  // Set auth token header auth
+  // Définir le token d'authentification au niveau du header
   const token = localStorage.jwtToken;
   setAuthToken(token);
-  // Decode token and get user info and exp
+  // Décoder le token et obtenir les informations sur l'utilisateur
   const decoded = jwt_decode(token);
-  // Set user and isAuthenticated
+  // Définir le user -- isAuthenticated
   store.dispatch(setCurrentUser(decoded));
-// Check for expired token
+// Vérifier si le token a expiré
   const currentTime = Date.now() / 1000; // to get in milliseconds
   if (decoded.exp < currentTime) {
-    // Logout user
+    // Déconnexion de l'utilisateur
     store.dispatch(logoutUser());
-    // Redirect to login
+    // Redirection vers le login
     window.location.href = "./login";
   }
 }
 
 /**
- * Main component of the website which has a navbar on top of all pages
- * and a router which displays the correct component based on URL
+ * Composant principal du site web qui a une barre de navigation en haut de toutes les pages
+ * et un routeur qui affiche le bon composant en fonction de l'URL
  */
 class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <Router>
+        <GlobalStyle />
           <div className="App" >
             <Navbar />
             

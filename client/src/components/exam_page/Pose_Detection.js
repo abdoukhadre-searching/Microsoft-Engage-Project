@@ -8,7 +8,7 @@ const Posenet = () => {
   const webcamRef=useRef(null);
   const canvasRef=useRef(null);
 
-//  Load posenet
+//  Charger le  posenet
 const runPosenet = async () => {
   const net = await posenet.load({
     architecture: 'ResNet50',
@@ -37,7 +37,7 @@ const detect = async (net) => {
     webcamRef.current.video.width = videoWidth;
     webcamRef.current.video.height = videoHeight;
 
-    // Make Detections
+    // Faire les Detections
     const pose = await net.estimateSinglePose(video);
     // console.log(pose);
 
@@ -62,10 +62,10 @@ const EarsDetect=(keypoints, minConfidence) =>{
   const keypointEarL = keypoints[4];
 
   if(keypointEarL.score<minConfidence){
-    swal("You looked away from the Screen (To the Right)")
+    swal("Vous avez détourné votre regard de l'écran (vers la droite)")
   }
   if (keypointEarR.score<minConfidence){
-    swal("You looked away from the Screen (To the Left)")
+    swal("Vous avez détourné votre regard de l'écran (vers la gauche)")
   }
 }
 

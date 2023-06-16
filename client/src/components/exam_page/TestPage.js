@@ -27,9 +27,9 @@ export default function TestPage(props){
   const history = useHistory();
 
   /**
-   * The below 4 functions are helper functions to set state
-   * Are passed to the ObjectDetection component to allow it
-   * to change state of its parent (This component)
+    * Les 4 fonctions ci-dessous sont des fonctions d'aide à la définition de l'état ou bien du context webapp
+    * Elles sont transmises au composant "ObjectDetection" pour lui permettre de modifier l'état de son parent (ce composant).
+    * de changer l'état de son parent ( ie ce composant)
    */
   function update_mobile_phone_found(){
     setMobilePhoneFound(true);
@@ -97,7 +97,7 @@ export default function TestPage(props){
     if (document.hidden) {
         // the page is hidden
         setTabChange(tab_change+1);
-        swal("Changed Tab Detected", "Action has been Recorded", "error");
+        swal("Changement de fenetre détecté", "Cette Action a été détectée", "error");
         
         
     } else {
@@ -115,12 +115,12 @@ export default function TestPage(props){
     
       if (event.altKey) {
           setKeyPress(key_press+1);
-          swal('Alt Key Press Detected',"Action has been Recorded", "error");
+          swal('Touche Alt Key Press détecté',"Cette Action a été détectée", "error");
           return false;
       }
       else if(event.ctrlKey) {
           setKeyPress(key_press+1);
-          swal('Ctrl Key Press Detected',"Action has been Recorded", "error");
+          swal('Touche Ctrl Key Press détecté',"Cette Action a été détectée", "error");
           return false;
       }
       else {
@@ -168,7 +168,7 @@ export default function TestPage(props){
         }
 
         if (minutes === 1 && seconds === 0) {
-          swal("Only 1 Minute Left, Please Submit or attendance wont be marked");
+          swal("Il ne reste plus qu'une minute, veuillez soumettre votre examen ou votre présence ne sera pas notée.");
         }
 
       if (seconds <= 0 && minutes <= 0) {
@@ -189,7 +189,7 @@ export default function TestPage(props){
    * the dashboard after showing a confirmation message
    */
   function handleSubmit(){
-      swal("Thank You for taking the exam. Logs have been shared with your professor");
+      swal("Merci d'avoir passé l'examen. Les logs pour le reporting ont été partagés avec votre professeur.");
       history.push('/dashboard');
   }
   return (
@@ -203,8 +203,8 @@ export default function TestPage(props){
 
       <br/>
       <div className="name">
-        <h6 align="left">Name:  <span style={{ fontSize: '20px' }} > {student_name}</span></h6>
-        <h6 align="left">Exam ID:  <span style={{ fontSize: '20px' }} > {exam_id}</span></h6>
+        <h6 align="left">Nom:  <span style={{ fontSize: '20px' }} > {student_name}</span></h6>
+        <h6 align="left">ID de l'Examen:  <span style={{ fontSize: '20px' }} > {exam_id}</span></h6>
       </div>
 
       <div className="time_rem">
@@ -213,7 +213,7 @@ export default function TestPage(props){
       </div>
 
       <div className="instructions">
-        <p align="center" style={{ fontSize: '18px' }}>To Save Your Attendance :<br/> Kindly Click <strong>Exit Exam</strong> after submitting the exam </p>
+        <p align="center" style={{ fontSize: '18px' }}>Pour Valider votre Présence :<br/> Faite un clique <strong>Quitter l'Examen</strong> après summission du test </p>
         </div>
         <div className="exit">
         <center>
@@ -223,14 +223,14 @@ export default function TestPage(props){
             color="primary"
             size="medium"
             onClick={handleSubmit}>
-            Exit Exam
+            Quitter l'Examen
             </Button>
         </center>
         </div>
         
       
         <div className="test">
-      <iframe src={form_link} id='form'> Loading… </iframe>
+      <iframe src={form_link} id='form'> Chargement .… </iframe>
       </div>
 
     

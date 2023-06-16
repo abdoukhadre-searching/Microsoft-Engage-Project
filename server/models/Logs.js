@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// create new schema for a student exam log
+// créer un nouveau schéma pour un journal d'examen d'étudiant
 const LogsSchema = new Schema({
     
     exam_code: {

@@ -5,25 +5,25 @@ const Exam = require("../../models/Exams");
 const validateExamInput = require("../../validation/CreateExam");
 
 /**
- * Post request on /createExam creates an exam
- * First a custom validator validates the requests
- * Then we try to check if same exam code is present. If not then
- * we create the exam else we display error
+ * Une requête post sur /createExam crée un examen.
+ * D'abord un validateur personnalisé valide les requêtes
+ * Ensuite, nous essayons de vérifier si le même code d'examen est présent. Si ce n'est pas le cas
+ * Nous créons l'examen, sinon nous affichons une erreur.
  */
 router.post("/createExam", (req, res) =>{
 
-    // validate exam data for errors
+    // vérifier que les données de l'examen ne comportent pas d'erreurs
     const {errors, isValid} = validateExamInput(req.body);
 
-    // if there is some error return error code 400 with error description
+    // en cas d'erreur, renvoyer le code d'erreur 400 avec la description de l'erreur
     if(!isValid){
         return res.status(400).json(errors);
     }
 
     Exam.findOne({exam_code : req.body.exam_code}).then(exam=>{
-        // if exam code is already present return error
+        // si le code d'examen est déjà présent, renvoyer l'erreur
         if(exam){
-            return res.status(400).json({name: "Exam with this code exists in database"});
+            return res.status(400).json({name: "L'examen avec ce code existe dans la base de données"});
         }
         else{
 
@@ -47,32 +47,32 @@ router.post("/createExam", (req, res) =>{
 });
 
 /**
- * Get requests on /examByCode with exam_code as the query parameter
- * return exam object if exam code is correct else an error is raised
+ * Obtenir des requêtes sur /examByCode avec exam_code comme paramètre de requête
+ * Retourne l'objet examen si le code de l'examen est correct, sinon une erreur est soulevée.
  */
 router.get("/examByCode", (req, res) => {
     const req_exam_code=req.query.exam_code;
     Exam.findOne({ exam_code : req_exam_code}).then(exam=>{
         
         if(!exam){
-            return res.status(400).json("Exam Code is invalid");
+            return res.status(400).json("Le code d'examen n'est pas valide");
         }
         return res.status(200).json(exam);
     });
 }); 
 
 /**
- * Get requests on /examByProf with exam_code and prof_email as query parameter
- * return exam object if the exam code is correct and it was created by the professor
- * with prof_email id
- * else returns an error
+ * Obtenir des requêtes sur /examByProf avec exam_code et prof_email comme paramètre de requête.
+ * renvoie l'objet examen si le code de l'examen est correct et s'il a été créé par le professeur
+ * avec prof_email id
+ * sinon, il renvoie une erreur
  */
 router.get("/examsByProf", (req, res) => {
     const req_exam_code=req.query.exam_code;
     const req_prof_email=req.query.prof_email;
     Exam.findOne({ prof_email: req_prof_email, exam_code: req_exam_code}).then(doc=> {
         if(!doc){
-            return res.status(400).json("Exam doesn't exist or professor doesnt have permission");
+            return res.status(400).json("L'examen n'existe pas ou le professeur n'en a pas l'autorisation");
         }
         return res.status(200).json(doc);
     });

@@ -8,8 +8,8 @@ import {
 } from "./types";
 
 /**
- * Registers the user by calling an API to the backend, dispatches errors 
- * if any
+ * Enregistre l'utilisateur en appelant une API au backend, distribue les erreurs.
+ * le cas échéant
  * 
  * @param {Object} userData 
  * @param {useHistory} history 
@@ -18,7 +18,7 @@ import {
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/api/users/register", userData)
-    .then(res => history.push("/login")) // re-direct to login on successful register
+    .then(res => history.push("/login")) // Renvoi à la connexion en cas HTTP Response OK. 201 réussi
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
@@ -29,7 +29,7 @@ export const registerUser = (userData, history) => dispatch => {
 
 /**
  * Logs in the user by calling API to the backend, recieves token, decodes
- * it using jwt_decode, saves token to local storage and auth headers, sets current user
+ * il utilise jwt_decode, enregistre le jeton dans le stockage local et les en-têtes d'authentification, définit l'utilisateur actuel
  * 
  * @param {Object} userData 
  * 
@@ -41,13 +41,13 @@ export const loginUser = userData => dispatch => {
       
 
       const { token } = res.data;
-      // Set token to localStorage
+      // Placer le token dans localStorage
       localStorage.setItem("jwtToken", token);
-      // Set token to Auth header
+      // Placer le token dans le "Auth header"
       setAuthToken(token);
-      // Decode token to get user data
+      // Décoder le token pour obtenir les données de l'utilisateur
       const decoded = jwt_decode(token);
-      // Set current user
+      // Définir l'utilisateur actuel
       dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
@@ -58,7 +58,7 @@ export const loginUser = userData => dispatch => {
     );
 };
 
-// Set logged in user
+// Définir l'utilisateur connecté
 export const setCurrentUser = decoded => {
 
   return {
@@ -68,7 +68,7 @@ export const setCurrentUser = decoded => {
 };
 
 
-// User loading
+// Chargement par l'utilisateur
 export const setUserLoading = () => {
   return {
     type: USER_LOADING
@@ -76,15 +76,14 @@ export const setUserLoading = () => {
 };
 
 /**
- * Logs out the user by deleting the JWT Token, removing it from header and
- * setting current user to empty
- * 
+ * Déconnecte l'utilisateur en supprimant le jeton JWT, en l'enlevant de l'en-tête et en
+ * en donnant à l'utilisateur actuel la valeur "vide".
  */
 export const logoutUser = () => dispatch => {
-  // Remove token from local storage
+  // Retirer le token du localStorage
   localStorage.removeItem("jwtToken");
-  // Remove auth header for future requests
+  // Supprimer dan sl'en-tête auth pour les demandes futures
   setAuthToken(false);
-  // Set current user to empty object {} which will set isAuthenticated to false
+  // Définir l'utilisateur actuel comme un objet vide {}, ce qui donnera la valeur false à isAuthenticated.
   dispatch(setCurrentUser({}));
 };

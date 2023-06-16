@@ -36,6 +36,7 @@ app.use("/api/logs",logs);
 const db = require("./config/keys").mongoURI;
 // Connect to MongoDB
 mongoose
+  .set('strictQuery', true)
   .connect(
     db,
     { useNewUrlParser: true }
@@ -45,10 +46,10 @@ mongoose
 
 // Handle GET requests to /api route
 app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
+  res.json({ message: "Hello from #Face_school_tracking_V1.0!" });
 });
 
-// All other GET requests not handled before will return our React app
+// Toutes les autres requêtes GET qui n'ont pas été traitées auparavant renverront notre application React
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });

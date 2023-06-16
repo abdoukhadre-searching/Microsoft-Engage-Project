@@ -1,78 +1,64 @@
-# Procto- An Automatic Exam Proctoring tool for Online Exams
+# Face School Tracking ✨ (extension  proctoring) - Un outil de surveillance automatique des examens en ligne
 
-# About Procto
-**Procto** is an online proctoring tool that Professors can use to create exams that are Proctored using AI. They can also view the status of each student taking the exam in Real-Time. **It is fast, easy to use, and incredibly convenient with a minimalistic UI!**
-To create an exam, just register and log in to your account, click on the Create Exam button and enter details like Exam Name, Google Form Link, Start Date and Time and duration. Procto generates a unique exam code that you can distribute among the students. The students start the exam by logging in and entering the exam code while the exam is running. While they are taking the exam they are **proctored using an AI-based system**. By entering the exam code, the professor can see the status of all the students in **real-time**.
-
-# Tech Stack
+# About Face School 👓 Proctoring
+**Face School Proctoring** est un outil de surveillance en ligne que les professeurs peuvent utiliser pour créer des examens surveillés à l'aide de l'IA. Ils peuvent également voir le statut de chaque étudiant qui passe l'examen en temps réel. **Il est rapide, facile à utiliser et incroyablement pratique avec une interface utilisateur minimaliste.
+Pour créer un examen, il suffit de s'inscrire et de se connecter à votre compte, de cliquer sur le bouton Créer un examen et d'entrer les détails comme le nom de l'examen, le lien vers l'examan, la date et l'heure de début et la durée. **FSP** génère un code d'examen unique que vous pouvez distribuer aux étudiants. Les étudiants commencent l'examen en se connectant et en entrant le code d'examen pendant que l'examen est en cours. Pendant qu'ils passent l'examen, ils sont **protégés par un système basé sur l'IA**. En entrant le code d'examen, le professeur peut voir le statut de tous les étudiants en **temps réel**.
+# Coté Tech Stack
 **Frontend-** React.js, Redux, Material-UI, Materialise.css
 **Backend-** Node.js, Express.js, Passport.js, JWT
 **Database-** MongoDB Atlas, Mongoose
 **Deep Learning Model-** Tensorflow Implementation of CocoSSD Object Detection Model
 
 # Video Demo
-[![Video Link](https://i9.ytimg.com/vi/8b6_rfUunG4/mq2.jpg?sqp=CJiYjY0G&rs=AOn4CLB0Y_JLes_6GY3X1obVKle_GKbfww)](https://www.youtube.com/watch?v=8b6_rfUunG4&ab)
+[![Video Link](https://bseenlive.com/wp-content/uploads/2018/03/Youtube-Logo-Small.png)](https://www.youtube.com/watch?v=P95pdFGkEtE)
 
-# Hosted Application URL
-https://online-exam-proctoring.herokuapp.com/
 
-# About The Author
-Hello! I am Rohit Tuli, **Final Year BTech CSE student at IIT Ropar**. I am very passionate about software development and problem-solving. Previously I have interned at **Flipkart** and **National University of Singapore**. Currently, I am working on a **year-long Research Project in collaboration with Microsoft India.** 
-I was also a **National Finalist (Top 3) in Flipkart Grid Challenge 2.0**, and **2nd Position in Global Cyber Challenge**, an international hackathon conducted by Government of India. 
-I love problem-solving and actively participate in many Competitive Programming Contests. I have also represented my college in ACM ICPC Regionals.
-
-# How to Use?
+# Comment le lancer ?
 
 ## Note
-**The website is hosted on [This Link](https://online-exam-proctoring.herokuapp.com/).**
-**I recommend running on this URL instead of running on your machine**
+Si vous souhaitez l'exécuter sur votre machine,
+1. Clone le Repository
+2. Deplacer vous sur le dossier **`Face School Tracking Proctoring`**
+`cd 'Face School Tracking Proctoring'`
+3. Lancer `npm install`
+4. Déplacez-vous dans le répertoire `client` et exécutez npm install à nouveau. `cd client` et `npm install`
+5. Retourner au répertoire parent `cd ..`
+6. Exécuter la commande npm run dev `npm run dev`
 
-If you wish to run it on your machine, 
-1. Clone the Repository
-2. Move to the Microsoft-Engage-Project folder
-`cd Microsoft-Engage-Project`
-3. Run `npm install`
-4. Move to client directory and run npm install again. `cd client` and `npm install`
-5. Move back to parent directory `cd ..`
-6. Run command npm run dev
-`npm run dev`
-This concurrently runs server and frontend. Give a few seconds for frontend to load on localhost:3000
-## As a Professor:
+Cela permet d'exécuter simultanément le serveur et le frontend. Laissez quelques secondes au frontend pour se charger sur localhost:3000
+## Pour le profil Professeur:
 
-1. Open https://online-exam-proctoring.herokuapp.com/ It might take some time to load for the first time, will be faster from the next time.
-2. Click on Register, CHECK are you an Instructor to create a professor account.
-3. Login to your account.
-3. Click on Create Exam Button. Fill out the form. In the Exam Link option you can enter any link like Google form, Microsoft Form etc on which you have created the quiz. It is advised to use Google Form.
-4. Click on Generate Code button, it generates a code and shows it in the corresponding input field. Note it down. Click Create Exam Button to create the exam.
-5. Once the exam is live, you can enter the exam code in the homepage and click the Check Logs Button to see the status of the students giving the exam in real time. To refresh the table just click Check Logs again.
+1. Ouvrir l'url http://localhost:3000 Le chargement peut prendre un certain temps la première fois, mais il sera plus rapide la fois suivante.
+2. Cliquez sur `Creer un compte` , et sur le toggle pour créer un compte professeur.
+3. Connectez-vous à votre compte.
+4. Cliquez sur le bouton Créer un examen. Remplissez le formulaire. Dans l'option Lien de l'examen, vous pouvez saisir n'importe quel lien (formulaire Google, formulaire Microsoft, etc.) sur lequel vous avez créé le quiz.
+5. Une fois que l'examen est en ligne, vous pouvez saisir le code de l'examen sur la page d'accueil et cliquer sur le bouton Vérifier les journaux pour voir le statut des étudiants qui passent l'examen en temps réel. Pour actualiser le tableau, il suffit de cliquer à nouveau sur Vérifier les journaux.
 
-## As a Student
-1. Open https://online-exam-proctoring.herokuapp.com/ It might take some time to load for the first time, will be faster from the next time.
-2. Click on Register, UNCHECK are you an Instructor to create a professor account.
-3. Login to your account.
-4. When the exam has started, enter the exam code provided by your professor and click the button to start the exam.
-5. Make sure you are sitting in a WELL LIT Room. Do not try to cheat because your actions are being recorded!
+## Pour le profil Etudiant
+1. Ouvrir  http://localhost:3000 Le chargement peut prendre un certain temps la première fois, mais il sera plus rapide la fois suivante.
+2. Cliquez sur `Creer un compte` , Décocher `etes vous un instructeur ou professeur` pour créer un compte en tant qu'etudiant.
+3. Connectez-vous à votre compte.
+4. Lorsque l'examen a commencé, entrez le code d'examen fourni par votre professeur et cliquez sur le bouton pour commencer l'examen.
+5. Assurez-vous d'être assis dans une salle bien éclairée. N'essayez pas de tricher car vos actions sont enregistrées !
 
+# Liste des Fonctionnalités
 
-# List of Features
+## Fonctionnalités sur le Protoring Exam :
 
-## Automatic Proctoring Features:
+1. Détection de personne : Si l'élève quitte le cadre et ne revient pas au bout de quelques secondes, cette action est enregistrée.
+2. Détection de plusieurs personnes : Si, à un moment quelconque de l'examen, plus d'une personne est visible à travers la webcam, cette action est enregistrée. Il n'est pas nécessaire que les visages soient visibles, car il s'agit d'une détection de personnes et non d'une détection de visages.
+3. Détection des téléphones portables : Si l'étudiant est détecté en train d'utiliser un téléphone portable pendant l'examen, cette action est enregistrée.
+4. Détection d'objets interdits : Si l'étudiant tente d'utiliser un objet interdit tel qu'un livre ou un ordinateur portable, cette action est enregistrée.
+5. Détection de changement d'onglet : L'outil compte le nombre de fois où l'élève essaie de changer d'onglet ou d'ouvrir une autre application.
+6. Détection des touches interdites : L'outil compte le nombre de fois où l'étudiant tente d'appuyer sur une touche interdite (Ctrl, Alt). Il s'agit de décourager le copier-coller et le partage des questions d'examen avec d'autres personnes ou l'utilisation d'autres raccourcis.
+7. Prévention du clic droit : Il n'est pas possible de cliquer avec le bouton droit de la souris pendant l'examen.
+8. Redémarrage de l'examen : Si, en raison d'un problème de réseau ou autre, l'examen est interrompu, il est possible de le redémarrer dans le temps imparti (entre le début et la fin de l'examen), mais le temps perdu n'est pas récupéré.
 
-1. Person Detection: If the student leaves the frame and does not return within a few seconds, this action gets recorded.
-2. Multiple People Detection: If at any point during the exam more than one person is visible through the webcam, this action gets recorded. Faces need not be visible as its person detection not face detection.
-3. Mobile Detection: If the student is detected using a mobile phone during the exam, this action gets recorded.
-4. Prohibited Object Detection: If the student tries to use a prohibited object like a Book or Laptop it gets recorded.
-5. Tab Change Detection: The tool counts the number of time student tried to change the tab or open some other application.
-6. Prohibited Key Press Detection: The tool counts the number of times the student tries to press a prohibited key (Ctrl, Alt). This is to discourage copy-paste and sharing exam questions with others or using other shortcuts.
-7. Right-Click Prevention: Right-clicking when the exam is going on is not possible.
-8. Exam Restart: If due to network or any other issue the exam gets interrupted, it is possible to restart the exam within the running time (between start and end of the exam), but the time lost is not recovered. 
+Note - Puisque dans l'itération actuelle du projet on utilise le lien actif fourni par le professeur au lieu de faire les questions dans l'application elle-même, il est impossible d'y mettre des `key listeners` et une prévention de clic droit puisque c'est une application tierce et que React l'empêche pour des raisons de sécurité.
+Pour tester ces fonctionnalités, merci de faire `ctrl press`, `alt press` et `clic droit` sur le côté gauche de l'écran uniquement.
 
-Note- Since in the current iteration of the project I am using google form link from professor instead of making questions in the application itself, it is impossible to put key listeners and right click prevention in it since its a third party app and React prevents it due to security reasons.
-To test these features, please do ctrl press, alt press and right click on left side of screen only.
-
-## Professor Side Features:
-1. Simple to use exam creation dialog box which automatically copies generated exam code to Clipboard.
-2. Dynamic Student Logs Table with sort by name, email, etc functionality, Pagination, no of entries per page selector and buttons for going to next and previous pages.
-3. Advanced Search functionality for logs table. Can search by a part of name, email etc with search results getting updated as you type. It also allows you to sort in ascending or descending order based on each column by clicking on column header. 
-
+## Fonctionnalités coté Professeurs:
+1. Boîte de dialogue de création d'examen simple à utiliser qui copie automatiquement le code d'examen généré dans le presse-papiers.
+2. Tableau dynamique des journaux des étudiants avec fonctionnalité de tri par nom, e-mail, etc., pagination, sélecteur de nombre d'entrées par page et boutons pour aller aux pages suivantes et précédentes.
+3. Fonctionnalité de recherche avancée pour le tableau des journaux. Il est possible d'effectuer une recherche sur une partie du nom, de l'adresse électronique, etc. et les résultats de la recherche sont mis à jour au fur et à mesure de la saisie. Il est également possible de trier par ordre croissant ou décroissant sur la base de chaque colonne en cliquant sur l'en-tête de la colonne.
  

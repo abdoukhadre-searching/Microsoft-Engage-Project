@@ -1,56 +1,74 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { Button, Container, MainHeading } from '../../globalStyles';
+import { HeroVideo, HeroSection, HeroText, ButtonWrapper, HeroButton } from './LandingStyle';
 
-/**
- * Creates the landing page that has 2 buttons Register and Login
- * Button presses redirect to the correct component
- */
 class Landing extends Component {
 
   render() {
     return (
+    <HeroSection>
+    			<HeroVideo src="./assets/coding.mp4" loop autoPlay muted />
+    			<Container>
+    				<MainHeading>Face School pour la surveillance des examens de façon sécurisé et transparente</MainHeading>
+    				<HeroText>
+    					Une avancé technologique avec l'IA pour l'éducation dans un monde numérique en pleine croissance
+    				</HeroText>
+    				<ButtonWrapper>
+    					<Link to="/login">
+    						<Button>Je me connecte</Button>
+    					</Link>
+    					<Link to="/register">
+    					    <HeroButton>Créer un compte</HeroButton>
+    					</Link>
+    				</ButtonWrapper>
+    			</Container>
+    		</HeroSection>
+      /*
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              <b>Proctor </b>your online exams with{" "}
-              <span style={{ fontFamily: "monospace" }}>Procto</span> and ensure cheating free exams!
+              <b> Face School Tracking </b> votre plateforme doté d'une IA pour la surveillance des examens de façon sécurisé et transparente avec {" "}
+              <span style={{ fontFamily: "monospace" }}>le Proctoring</span>..plus de tricherie durant les examens en ligne !
             </h4>
             <p className="flow-text grey-text text-darken-1">
-              Create an exam, share unique code with students and monitor cheating attempts in real time from the dashboard. Its 
-              that simple!
+            Créez un examen, partagez un code unique avec les étudiants et surveillez les tentatives de tricherie en temps réel à partir du tableau de bord. C'est 
+            aussi simple que cela !
             </p>
             <br />
             <div className="col s6">
               <Link
                 to="/register"
                 style={{
-                  width: "140px",
+                  width: "250px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px"
                 }}
                 className="btn btn-large waves-effect waves-light hoverable blue accent-3"
               >
-                Register
+                Créer un compte
               </Link>
             </div>
             <div className="col s6">
               <Link
                 to="/login"
                 style={{
-                  width: "140px",
+                  width: "250px",
                   borderRadius: "3px",
                   letterSpacing: "1.5px"
                 }}
                 className="btn btn-large btn-flat waves-effect white black-text"
               >
-                Log In
+                Se connecter
               </Link>
             </div>
           </div>
         </div>
       </div>
+    );*/
     );
   }
 }
 export default Landing;
+

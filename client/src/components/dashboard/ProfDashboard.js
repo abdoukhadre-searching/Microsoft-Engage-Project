@@ -27,19 +27,19 @@ function ProfDashboard(props) {
   const axios = require("axios");
 
   /**
-   * This function opens the exam dialog
-   * Triggered when user presses Create Exam button
-   */
+  * Cette fonction ouvre la boîte de dialogue de l'examen
+  * Déclenchée lorsque l'utilisateur appuie sur le bouton Créer un examen
+  */
   function openExamDialog(){
       setExamDialogOpen(true);
   }
 
   /**
-   * This function is called when user presses Cancel Button
-   * or clicks outside the dialog box
-   * It first sets all variables to their initial value then
-   * closes the dialog box
-   */
+  * Cette fonction est appelée lorsque l'utilisateur appuie sur le bouton Annuler
+  * ou clique en dehors de la boîte de dialogue
+  * Elle définit d'abord toutes les variables à leur valeur initiale, puis elle ferme la boîte de dialogue.
+  * Elle ferme la boîte de dialogue
+  */
   function closeExamDialog(){
       setName("");
       setExamLink("");
@@ -51,7 +51,7 @@ function ProfDashboard(props) {
   }
 
   /**
-   * Uses regular expressions to check if string is url or not
+   * Utilise des expressions régulières pour vérifier si la chaîne est une URL ou non
    * @param {string} s 
    * @returns true if url, false otherwise
    */
@@ -60,24 +60,23 @@ function ProfDashboard(props) {
       return regexp.test(s);
   }
   
-  /**
-   * This function is called when Create Exam button is pressed
-   * It first checks whether all fields are correct, if not it displays error
-   * Then it sends data to server, closes the dialog and shows a notification
-   * that exam has been created
-   * 
+   /**
+   * Cette fonction est appelée lorsque l'on appuie sur le bouton Créer un examen.
+   * Elle vérifie d'abord si tous les champs sont corrects, si ce n'est pas le cas, elle affiche une erreur.
+   * Elle envoie ensuite les données au serveur, ferme la boîte de dialogue et affiche une notification
+   * que l'examen a été créé
    */
   function createExam(){
       if(name===""){
-          setErrorText("Name of Exam cannot be empty");
+          setErrorText("Le nom de l'examen ne peut être vide");
           return;
       }
       if(exam_link===""){
-          setErrorText("Exam Link cannot be empty");
+          setErrorText("Le lien d'examen ne peut pas être vide");
           return;
       }
       if(!isUrl(exam_link)){
-          setErrorText("Exam Link must be a valid url");
+          setErrorText("Le lien de l'examen doit être une URL valide");
           return;
       }
       if(duration === 0){
@@ -85,14 +84,14 @@ function ProfDashboard(props) {
           return;
       }
       if(exam_code===""){
-          setErrorText("Click Generate exam code to get an exam code first");
+          setErrorText("Cliquez sur Générer un code d'examen pour obtenir d'abord un code d'examen.");
           return;
       }
       var current_date_time = new Date();
-      if(date_time_start< current_date_time){
-        setErrorText("Please select a date and time of the future");
-        return;
-      }
+      // if(date_time_start< current_date_time){
+      //   setErrorText("Please select a date and time of the future");
+      //   return;
+      // }
       axios.post('/api/exams/createExam', {
           name: name,
           exam_link: exam_link,
@@ -103,11 +102,11 @@ function ProfDashboard(props) {
         })
         .then(function (response) {
           console.log(response);
-          swal("Exam has been created. Your exam code has been copied to your clipboard, please share it with the students.");
+          swal("L'examen a été créé. Votre code d'examen a été copié dans votre presse-papiers, veuillez le partager avec les étudiants.");
         })
         .catch(function (error) {
           console.log(error);
-          swal("Some error occoured in creating the exam");
+          swal("Une erreur s'est produite lors de la création de l'examen");
         });
       
       closeExamDialog();
@@ -136,14 +135,14 @@ function ProfDashboard(props) {
         <div className="row">
           <div className="col s12 center-align">
             <h4>
-              <b>Hey there,</b> {props.name.split(" ")[0]}
+              <b>Bonjour ,</b> {props.name.split(" ")[0]}
               <p className="flow-text grey-text text-darken-1">
-                You can create a new exam and see the results of previous exams. 
+                Vous pouvez programmer un examen et consulter les informations des examens précédents. 
               </p>
             </h4>
             <button
               style={{
-                width: "200px",
+                width: "300px",
                 borderRadius: "3px",
                 letterSpacing: "1.5px",
                 marginTop: "1rem"
@@ -151,7 +150,7 @@ function ProfDashboard(props) {
               onClick={openExamDialog}
               className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
-              Create Exam
+              Programmer un examen
             </button>
             <button
               style={{
@@ -162,9 +161,9 @@ function ProfDashboard(props) {
                 marginTop: "1rem"
               }}
               onClick={props.logoutUser}
-              className="btn btn-large waves-effect waves-light hoverable blue accent-3"
+              className="btn btn-large waves-effect waves-light hoverable red accent-3"
             >
-              Logout
+              Déconnecter
             </button>
             <br/>
             <br/>
@@ -174,10 +173,10 @@ function ProfDashboard(props) {
             
             <Dialog open={examDialogOpen} onClose={closeExamDialog} aria-labelledby="form-dialog-title" repositionOnUpdate={false}
             style={{ padding: '10px 10px 10px 10px' }}>
-            <DialogTitle id="form-dialog-title">Create Exam</DialogTitle>
+            <DialogTitle id="form-dialog-title">Créer examen</DialogTitle>
             <DialogContent margin="20px" style={{ padding: "30px" }}>
               <DialogContentText>
-                  Enter details for the exam. Press Generate to generate the exam code and share it with the students.
+                  Renseigner les details de l'examen. Appuyer sur Generer pour generer un code et partager le avec vos etudinats ou eleves ou collaborateurs.
               </DialogContentText>
               <TextField
                   autoFocus
@@ -203,7 +202,7 @@ function ProfDashboard(props) {
                   required={true}
                   fullWidth
               />
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
+              {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
                   <DateTimePicker
                       renderInput={(props) => <TextField {...props} />}
                       label="DateTimePicker"
@@ -214,7 +213,7 @@ function ProfDashboard(props) {
                       setDateTimeStart(newValue);
                       }}
                   />
-              </LocalizationProvider>
+              {/* </LocalizationProvider> */}
               <TextField
                   id="duration"
                   name="duration"
@@ -240,14 +239,14 @@ function ProfDashboard(props) {
                   fullWidth
               />
               <p style={{ color: "red" }}> {errorText}</p>
-              <Button onClick={generateCode}>Generate Exam Code</Button>
+              <Button onClick={generateCode}>Générer un code pour l'examen</Button>
               </DialogContent>
               <DialogActions>
               <Button onClick={closeExamDialog} color="secondary">
-                  Close
+                  Fermer    
               </Button>
               <Button onClick={createExam} color="primary">
-                  Save
+                  Enregistrer
               </Button>
               </DialogActions>
             </Dialog>
@@ -263,11 +262,14 @@ function ProfDashboard(props) {
 ProfDashboard.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
-  };
-  const mapStateToProps = state => ({
+};
+
+const mapStateToProps = state => ({
     auth: state.auth
-  });
-  export default connect(
-    mapStateToProps,
-    { logoutUser }
-  )(ProfDashboard);
+});
+
+
+export default connect(
+  mapStateToProps,
+  { logoutUser }
+)(ProfDashboard);

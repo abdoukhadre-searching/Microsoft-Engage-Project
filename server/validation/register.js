@@ -3,39 +3,39 @@ const isEmpty = require("is-empty");
 
 module.exports = function validateRegisterInput(RegistrationData) {
     let errors = {};
-  // Convert empty fields to an empty string so we can use validator functions
+  // Convertir les champs vides en une chaîne vide afin de pouvoir utiliser les fonctions du validateur
     RegistrationData.name = !isEmpty(RegistrationData.name) ? RegistrationData.name : "";
     RegistrationData.email = !isEmpty(RegistrationData.email) ? RegistrationData.email : "";
     RegistrationData.password = !isEmpty(RegistrationData.password) ? RegistrationData.password : "";
     RegistrationData.password2 = !isEmpty(RegistrationData.password2) ? RegistrationData.password2 : "";
 
-  // Name checks
+  // Validation noms
     if (Validator.isEmpty(RegistrationData.name)) {
-      errors.name = "Name field is required";
+      errors.name = "Le champ Nom est obligatoire";
     }
 
-  // Email checks
+  // Validation Email
     if (Validator.isEmpty(RegistrationData.email)) {
-      errors.email = "Email field is required";
+      errors.email = "Le champ Email est obligatoire";
     } 
     else if (!Validator.isEmail(RegistrationData.email)) {
-      errors.email = "Email is invalid";
+      errors.email = "Email n'est pas valide";
     }
 
   // Password checks
     if (Validator.isEmpty(RegistrationData.password)) {
-      errors.password = "Password field is required";
+      errors.password = "Le champ du mot de passe est obligatoire";
     }
     if (Validator.isEmpty(RegistrationData.password2)) {
-        errors.password2 = "Confirm password field is required";
+        errors.password2 = "Le champ Confirmer le mot de passe est obligatoire";
     }
     if (!Validator.isLength(RegistrationData.password, { min: 6, max: 30 })) {
-        errors.password = "Password must be at least 6 characters";
+        errors.password = "Le mot de passe doit comporter au moins 6 caractères";
     }
     if (!Validator.equals(RegistrationData.password, RegistrationData.password2)) {
-        errors.password2 = "Passwords must match";
+        errors.password2 = "Les mots de passe doivent correspondre";
     }
-    // return errors list and isValid which is true if list is empty
+    // renvoie la liste des erreurs et isValid qui est vrai si la liste est vide
     return {
         errors,
         isValid: isEmpty(errors)

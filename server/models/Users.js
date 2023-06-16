@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-// create new schema for website user (professor or student)
-// userType is true if professor else false
+// créer un nouveau schéma pour l'utilisateur du site web (professeur ou étudiant)
+// userType est vrai si professeur sinon faux
 const UserSchema = new Schema({
     name: {
       type: String,

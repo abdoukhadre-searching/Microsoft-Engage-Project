@@ -17,7 +17,7 @@ class Register extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    // If erros are detected in the form update error state so they are visible to the user
+    // Si des erreurs sont détectées dans le formulaire, mettre à jour l'état d'erreur pour qu'elles soient visibles par l'utilisateur.
     if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -26,40 +26,38 @@ class Register extends Component {
   }
 
   componentDidMount() {
-    // If logged in and user navigates to Register page, should redirect them to dashboard
+    // Si l'utilisateur est connecté et qu'il navigue vers la page d'inscription, il doit être redirigé vers le tableau de bord.
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
   }
-
   /**
-   * Combined on change function for all components.
-   * The input event is used to get id which is the same as state name
-   * So the value of state is set to be event.target.value which is the 
-   * value inputted by user
+   * Fonction combinée de changement pour tous les composants.
+   * L'événement d'entrée est utilisé pour obtenir l'identifiant qui est le même que le nom du State
+   * La valeur du State est donc fixée à event.target.value qui est la valeur saisie par l'utilisateur.
+   * la valeur saisie par l'utilisateur
    * @param {event} e
-   * 
+   *
    */
   onChange = e => {
     this.setState({ [e.target.id]: e.target.value });
   };
 
   /**
-   * Toggler Function for the Are you an instructor? Switch
-   * The input event is used to get id which is the same as state name
-   * So the value of state is set to be event.target.value which is the 
-   * value inputted by user
-   * @param {event} e
-   * 
-   */
+    * Fonction Toggler pour la page "Si vous etes un instructeur ? Switch"
+    * L'événement d'entrée est utilisé pour obtenir l'identifiant qui est le même que le nom de l'état
+    * La valeur de l'état est donc fixée à event.target.value qui est la valeur saisie par l'utilisateur.
+    * la valeur saisie par l'utilisateur
+    * @param {event} e
+    */
   onToggle=e=>{
     this.setState({[e.target.id]:!this.state.userType});
   }
 
-  /**
-   * This function is triggered when user presses register button
-   * This sends email and password to registerUser function in authActions.js
-   * @param {Event} e 
+/**
+   * Cette fonction est déclenchée lorsque l'utilisateur appuie sur le bouton d'enregistrement
+   * Cette fonction envoie l'email et le mot de passe à la fonction registerUser dans authActions.js
+   * @param {Event} e
    */
   onSubmit = e => {
     e.preventDefault();
@@ -81,15 +79,14 @@ class Register extends Component {
           <div className="row">
             <div className="col s8 offset-s2">
               <Link to="/" className="btn-flat waves-effect">
-                <i className="material-icons left">keyboard_backspace</i> Back to
-                home
+                <i className="material-icons left">keyboard_backspace</i> Retour à l'acceuil
               </Link>
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <h4>
-                  <b>Register</b> below
+                  <b>Creation de compte </b> ci-dessous
                 </h4>
                 <p className="grey-text text-darken-1">
-                  Already have an account? <Link to="/login">Log in</Link>
+                  Déja un compte? <Link to="/login">Se connecter</Link>
                 </p>
               </div>
               <form noValidate onSubmit={this.onSubmit}>
@@ -104,7 +101,7 @@ class Register extends Component {
                       invalid: errors.name
                     })}
                   />
-                  <label htmlFor="name">Name</label>
+                  <label htmlFor="name">Nom</label>
                   <span className="red-text">{errors.name}</span>
                 </div>
                 <div className="input-field col s12">
@@ -132,7 +129,7 @@ class Register extends Component {
                       invalid: errors.password
                     })}
                   />
-                  <label htmlFor="password">Password</label>
+                  <label htmlFor="password">Mot de passe</label>
                   <span className="red-text">{errors.password}</span>
                 </div>
                 <div className="input-field col s12">
@@ -146,12 +143,12 @@ class Register extends Component {
                       invalid: errors.password2
                     })}
                   />
-                  <label htmlFor="password2">Confirm Password</label>
+                  <label htmlFor="password2">Confirmation de mot de passe</label>
                   <span className="red-text">{errors.password2}</span>
                 </div>
                 <div class="switch col s12">
                 <label>
-                  Are you an instructor?
+                  Etes-vous un Instituteur | Enseignant | Professeur ?
                   <input type="checkbox" id = "userType" checked={this.state.userType} onChange={this.onToggle}></input>
                   <span className="lever"></span>
                   
@@ -161,15 +158,15 @@ class Register extends Component {
               {  <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                   <button
                     style={{
-                      width: "150px",
-                      borderRadius: "3px",
+                      width: "250px",
                       letterSpacing: "1.5px",
-                      marginTop: "1rem"
+                      marginTop: "1rem",
+                      borderRadius: "25px"
                     }}
                     type="submit"
                     className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                   >
-                    Sign up
+                  Créer un compte
                   </button>
                 </div>}
               </form>

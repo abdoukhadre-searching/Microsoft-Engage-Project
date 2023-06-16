@@ -18,10 +18,10 @@ class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      // If the user is already logged in, send him to dashboard
+      // Si l'utilisateur est déjà connecté, envoyez-le au tableau de bord.
       this.props.history.push("/dashboard");
     }
-    // set errors if present
+    // définir les erreurs s'il y en a
     if (nextProps.errors) {
 
       this.setState({
@@ -31,37 +31,38 @@ class Login extends Component {
   }
   componentDidMount() {
 
-    // If logged in and user navigates to Login page, should redirect them to dashboard
+    // Si l'utilisateur est connecté et qu'il se rend sur la page de connexion,
+    // il doit être redirigé vers le tableau de bord.
     if (this.props.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
 
   }
   /**
-   * Combined on change function for all components.
-   * The input event is used to get id which is the same as state name
-   * So the value of state is set to be event.target.value which is the 
-   * value inputted by user
-   * @param {event} e
-   * 
-   */
+     * Fonction combinée de changement pour tous les composants.
+     * L'événement d'entrée est utilisé pour obtenir l'identifiant qui est le même que le nom de l'état
+     * La valeur de l'état est donc fixée à event.target.value qui est la valeur saisie par l'utilisateur.
+     * la valeur saisie par l'utilisateur
+     * @param {event} e
+     *
+     */
   onChange = e => {
       this.setState({ [e.target.id]: e.target.value });
   };
 
   /**
-   * This function is triggered when user presses log in button
-   * This sends email and password to loginUser function in authActions.js
-   * @param {Event} e 
-   */
+     * Cette fonction est déclenchée lorsque l'utilisateur appuie sur le bouton de connexion
+     * Elle envoie l'email et le mot de passe à la fonction loginUser dans authActions.js
+     * @param {Event} e
+     */
   onSubmit = e => {
     e.preventDefault();
     const userData = {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.loginUser(userData); // since we handle the redirect within our component, 
-    //we don't need to pass in this.props.history as a parameter
+    this.props.loginUser(userData); // since we handle the redirect within our component,
+    //nous n'avons pas besoin de passer "this.props.history" en paramètre
   };
 
 
@@ -72,16 +73,17 @@ class Login extends Component {
         <div style={{ marginTop: "4rem" }} className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
-              <i className="material-icons left">keyboard_backspace</i> Back to
-              home
+              <i className="material-icons left">keyboard_backspace</i> Retour 
+              a l'acceuil
+              
             </Link>
 
             <div className="col s12" style={{ paddingLeft: "11.250px" }}>
               <h4>
-                <b>Login</b> below
+                <b>Se connecter</b> ci-dessous
               </h4>
               <p className="grey-text text-darken-1">
-                Don't have an account? <Link to="/register">Register</Link>
+                Pas de compte ? <Link to="/register">Créer un ici</Link>
               </p>
             </div>
             
@@ -114,7 +116,7 @@ class Login extends Component {
                     invalid: errors.password || errors.passwordincorrect
                   })}
                 />
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Mot de passe</label>
                 <span className="red-text">
                   {errors.password}
                   {errors.passwordincorrect}
@@ -123,15 +125,16 @@ class Login extends Component {
               <div className="col s12" style={{ paddingLeft: "11.250px" }}>
                 <button
                   style={{
-                    width: "150px",
+                    width: "250px",
                     borderRadius: "3px",
                     letterSpacing: "1.5px",
-                    marginTop: "1rem"
+                    marginTop: "1rem",
+                    borderRadius: "25px"
                   }}
                   type="submit"
                   className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                 >
-                  Login
+                  Se connecter
                 </button>
               </div>
             </form>

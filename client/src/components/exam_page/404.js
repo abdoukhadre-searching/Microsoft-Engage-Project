@@ -1,7 +1,7 @@
 import React from 'react'
 const PageNotFound = () => {
 
-  //Disable Right click
+  //Désactiver le click Droit
   if (document.addEventListener) {
     document.addEventListener('contextmenu', function (e) {
       e.preventDefault();
@@ -11,10 +11,10 @@ const PageNotFound = () => {
   return (<div>
     <center>
       <h3>
-        Page Not Found
+        Page introuvable
         </h3>
       <small>
-        This action has been recorded
+        Cette action a ete enregistrée
         </small>
     </center>
   </div>

@@ -6,8 +6,8 @@ import "@tensorflow/tfjs";
 import "./Detections.css";
 
 /**
- * This is the object detection class which uses webcam input 
- * feed and runs coco-ssd model for object detection
+ * Il s'agit de la classe de détection d'objets qui utilise l'entrée de la webcam
+ * et exécute le modèle coco-ssd pour la détection d'objets.
  */
 export default class Detection extends React.Component {
   // Create video and canvas reference
@@ -16,17 +16,17 @@ export default class Detection extends React.Component {
 
   constructor(props) {
     super(props);
-    // count in state stores no of frames passed since face is not visible
+    // compte avec le context applicatif et stocke le nombre d'images passées depuis que la face n'est pas visible
     this.state = {count: 0};
   }
 
   /**
-   * ComponentDidMount Runs when the component is first loaded
-   * Setting up webcam input, loading model and calling DetectFrame which is
-   * a recursive function so that it keeps detecting throughout the test
+   * "ComponentDidMount" S'exécute lorsque le composant est chargé pour la première fois
+   * Il configure l'entrée de la webcam, charge le modèle et appelle DetectFrame, qui est une fonction récursive.
+   * une fonction récursive, de sorte que la détection se poursuive tout au long du test
    */
   componentDidMount() {
-    // setting up webcam input
+    // configuration de l'entrée de la webcam
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       const webCamPromise = navigator.mediaDevices
         .getUserMedia({
@@ -46,7 +46,7 @@ export default class Detection extends React.Component {
             };
           });
         });
-      // load model and call the detectFrame function
+      // charger le modèle et appeler la fonction detectFrame
       const modelPromise = cocoSsd.load();
       Promise.all([modelPromise, webCamPromise])
         .then(values => {
@@ -59,8 +59,8 @@ export default class Detection extends React.Component {
   }
 
   /**
-   * Use the model to detect objects in the frame, pass the predictions
-   * to renderPredictions function then call detectFrame again
+   * Utiliser le modèle pour détecter les objets dans le cadre, passer les prédictions
+   * à la fonction renderPredictions, puis appeler à nouveau detectFrame
    * @param {videoRef} video 
    * @param {ModelPromise} model 
    */
@@ -81,26 +81,26 @@ export default class Detection extends React.Component {
   
   renderPredictions = predictions => {
     
-    // setting up the canvas for drawing rectangles and printing 
+    // configuration du canevas pour le dessin de rectangles et l'impression
     // prediction text
     const ctx = this.canvasRef.current.getContext("2d");
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
     ctx.font = "16px sans-serif";
     ctx.textBaseline = "top";
 
-    // looping on predictions and drawing the bounding box for each object
-    // and the text label background
+    // boucler sur les prédictions et dessiner la boîte englobante pour chaque objet
+    // et l'arrière-plan de l'étiquette de texte
     predictions.forEach(prediction => {
 
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
       const width = prediction.bbox[2];
       const height = prediction.bbox[3];
-      // Draw the bounding box.
+      // Dessinez la boîte de cadrage.
       ctx.strokeStyle = "#00FFFF";
       ctx.lineWidth = 2;
       ctx.strokeRect(x, y, width, height);
-      // Draw the label background.
+      // Dessinez l'arrière-plan de l'étiquette.
       ctx.fillStyle = "#00FFFF";
       const textWidth = ctx.measureText(prediction.class).width;
       const textHeight = parseInt("16px sans-serif", 10); // base 10
@@ -108,7 +108,7 @@ export default class Detection extends React.Component {
       
     });
 
-    // Looping over all predictions and drawing text (prediction class)
+    // Passer en revue toutes les prédictions et dessiner du texte (classe de prédiction)
     predictions.forEach(prediction => {
       const x = prediction.bbox[0];
       const y = prediction.bbox[1];
@@ -122,30 +122,31 @@ export default class Detection extends React.Component {
     });
     
     var faces = 0;
-      // if face is not visible till 50 consecutive frames, student is
-      // not in front of the computer, throw an error
+      // si le visage n'est pas visible pendant 50 images consécutives, l'élève est
+      // n'est pas devant l'ordinateur, lancer une erreur.
       if (predictions.length === 0 && this.state.count <50){
         this.state.count++;
       }
       else if (predictions.length === 0) {
         this.state.count=0;
-        swal("Face Not Visible", "Action has been Recorded", "error");
+        swal("Visage introuvable", "Cette action a été enregistrée", "error");
         this.props.FaceNotVisible();
       }
 
-      // loop over all predictions and check if mobile phone, book, laptop or multiple
-      // people are there in the frame 
+      // boucler sur toutes les prédictions et vérifier si le téléphone portable, le livre,
+      // l'ordinateur portable ou plusieurs personnes sont présents dans le cadre.
+      // personnes sont présentes dans le cadre
       for (let i = 0; i < predictions.length; i++) {
 
         if (predictions[i].class === "cell phone") {
           this.props.MobilePhone();
-          swal("Cell Phone Detected", "Action has been Recorded", "error");
+          swal("Téléphone détectée", "Cette action a été enregistrée", "error");
           
         }
 
         else if (predictions[i].class === "book" || predictions[i].class === "laptop") {
           this.props.ProhibitedObject();
-          swal("Prohibited Object Detected", "Action has been Recorded", "error");
+          swal("Objets interdits détecté", "Cette action a été enregistrée", "error");
           
         }
         
@@ -157,7 +158,7 @@ export default class Detection extends React.Component {
       }
       if(faces > 1){
         this.props.MultipleFacesVisible();
-        swal(faces.toString()+" people detected", "Action has been recorded", "error");
+        swal(faces.toString()+" personnes Détectées", "Cette action a été enregistrée", "error");
       }
 
   };

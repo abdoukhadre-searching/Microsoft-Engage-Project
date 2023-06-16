@@ -5,7 +5,7 @@ import {
 
   const isEmpty = require("is-empty");
 
-  // define the initial state for "auth"
+  // definir l'état initiale pour le "auth"
   const initialState = {
     isAuthenticated: false,
     user: {},
@@ -13,7 +13,7 @@ import {
   };
 
   /**
-   * Combined function for setting current user and setting user_loading
+   * Fonction combinée pour le réglage de l'utilisateur actuel et le réglage du chargement de l'utilisateur
    * @param {State} state 
    * @param {string} action 
    * @returns new state
