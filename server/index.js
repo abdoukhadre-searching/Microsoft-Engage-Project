@@ -41,11 +41,11 @@ mongoose
     db,
     { useNewUrlParser: true }
   )
-  .then(() => console.log("MongoDB successfully connected"))
+  .then(() => console.log("MongoDB successfully connected ✨😎"))
   .catch(err => console.log(err));
 
 // Handle GET requests to /api route
-app.get("/api", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ message: "Hello from #Face_school_tracking_V1.0!" });
 });
 

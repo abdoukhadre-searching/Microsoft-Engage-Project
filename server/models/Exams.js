@@ -17,7 +17,7 @@ const ExamSchema = new Schema({
     
     date_time_start:{
         type: Date,
-        required:false
+        required: true
     },
     duration:{
       type: Number,

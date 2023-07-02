@@ -1,16 +1,26 @@
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Container, MainHeading } from '../../globalStyles';
 import { HeroVideo, HeroSection, HeroText, ButtonWrapper, HeroButton } from './LandingStyle';
+import swal from 'sweetalert';
 
 class Landing extends Component {
+   /*
+   handleFullScreen() {
+        document.requestFullscreen().then(console.log("full screen activate ! "));
+        swal("Le mode Plein Ecran est activé", "Ne la quitter en aucun cas durant l'examen", "error");
+      }
+   */
+
+
 
   render() {
     return (
     <HeroSection>
     			<HeroVideo src="./assets/coding.mp4" loop autoPlay muted />
     			<Container>
-    				<MainHeading>Face School pour la surveillance des examens de façon sécurisé et transparente</MainHeading>
+    			    <img src="../assets/fs.png" alt="Logo" style={{ width: '100%', justifyContent: 'center', marginTop: '-20%' }}/>
+    				<MainHeading>Le meilleur outil de surveillance des examens de façon sécurisé et transparente</MainHeading>
     				<HeroText>
     					Une avancé technologique avec l'IA pour l'éducation dans un monde numérique en pleine croissance
     				</HeroText>
@@ -23,7 +33,7 @@ class Landing extends Component {
     					</Link>
     				</ButtonWrapper>
     			</Container>
-    		</HeroSection>
+    </HeroSection>
       /*
       <div style={{ height: "75vh" }} className="container valign-wrapper">
         <div className="row">

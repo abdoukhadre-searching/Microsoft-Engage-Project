@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 import PropTypes from "prop-types";
 import TextField from '@mui/material/TextField';
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/authActions";
 import { useHistory } from "react-router-dom";
+import Swal from 'sweetalert2';
+import { FullScreen, useFullScreenHandle } from "react-full-screen";
+import 'animate.css';
 
 function StudentDashboard(props) {
-
+    const handle = useFullScreenHandle();
+    //const [isFullscreen, setIsFullscreen] = useState(false);
+    const [isFullscreen, setFullscreen] = useState(false)
     const [exam_code, setExamCode] = useState("");
     const [error, setError] = useState("");
 
@@ -30,6 +35,7 @@ function StudentDashboard(props) {
             let date_string = response.data.date_time_start;
             const exam_date_time_start = new Date(date_string);
             const exam_date_time_end = moment(exam_date_time_start).add(response.data.duration, 'm').toDate();
+            console.log('exam_date_time_end ---: ', exam_date_time_end)
             const curr_date_time = new Date();
 
             // si l'examen a commencé mais n'est pas terminé, permettre à l'utilisateur de s'inscrire
@@ -55,17 +61,30 @@ function StudentDashboard(props) {
                     pathname: '/test',
                     state: data
                 })
-                 
+                // on lance le mode fullscreen
+                document.documentElement.requestFullscreen()
+                .then(
+                    Swal.fire({
+                          title: "Le mode Plein Ecran est ACTIVE",
+                          text: "Ne la quitter en aucun cas durant l'examen",
+                          type: "info"
+                    })
+                )
             }
 
             // si l'heure actuelle est postérieure à l'heure de fin de l'examen, afficher une erreur
             else if(curr_date_time >= exam_date_time_end){
                 setError("L'Examen est déja terminé");
             }
-
             // si l'heure actuelle est antérieure au début de l'examen, afficher l'erreur
             else {
                 setError("L'examen n'a pas encore démarré");
+                Swal.fire({
+                  title: "L'examen n'a pas encore démarré",
+                  text: "Verifer la date exacte avant d'y accéder ",
+                  type: "info"
+                })
+
             }
           })
 

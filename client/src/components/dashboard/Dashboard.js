@@ -12,29 +12,37 @@ import StudentDashboard from "./StudentDashboard";
  * ProfDashboard Component
  */
 class Dashboard extends Component {
-  onLogoutClick = e => {
-    e.preventDefault();
-    this.props.logoutUser();
-  };
-render() {
-    const { user } = this.props.auth;
-    console.log(user);
-    
-return (
-      <div >
-      {user.userType===true?<ProfDashboard name={user.name} prof_email={user.email} logoutUser={this.props.logoutUser}/>:
-      <StudentDashboard name={user.name} student_email={user.email} logoutUser={this.props.logoutUser}/>}
-      </div>
-    );
-  }
+        onLogoutClick = e => {
+            e.preventDefault();
+            this.props.logoutUser();
+        };
+        render() {
+            const { user } = this.props.auth;
+            console.log(user);
+
+            return (
+                  <div >
+                      {
+                        user.userType===true  ?
+
+                        <ProfDashboard name={user.name} prof_email={user.email} logoutUser={this.props.logoutUser}/>:
+
+                        <StudentDashboard name={user.name} student_email={user.email} logoutUser={this.props.logoutUser}/>
+                      }
+                  </div>
+            );
+        }
 }
+
 Dashboard.propTypes = {
   logoutUser: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired
 };
+
 const mapStateToProps = state => ({
   auth: state.auth
 });
+
 export default connect(
   mapStateToProps,
   { logoutUser }

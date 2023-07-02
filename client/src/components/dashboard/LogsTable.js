@@ -69,7 +69,7 @@ const headCells = [
   { id: 's_no', numeric: false, disablePadding: false, label: 'S. No.' },
   { id: 'student_name', numeric: false, disablePadding: false, label: 'Nom' },
   { id: 'student_email', numeric: false, disablePadding: false, label: 'Email' },
-  { id: 'tab_change_count', numeric: true, disablePadding: false, label: "Changemennt d'activité" },
+  { id: 'tab_change_count', numeric: true, disablePadding: false, label: "Changement d'activité" },
   { id: 'key_press_count', numeric: true, disablePadding: false, label: 'Touches interdites détectée' },
   { id: 'face_not_visible', numeric: false, disablePadding: false, label: 'Visage pas Visible' },
   { id: 'multiple_faces_found', numeric: false, disablePadding: false, label: 'Multiple visages détecter' },
@@ -219,7 +219,7 @@ export default function LogsTable(props) {
       .catch(function (err) {
           console.log(err);
           // soit le code de l'examen n'est pas valide, soit il ne s'agit pas de l'examen de ce professeur
-          setErrorText("Either exam code is invalid or you dont have permission");
+          setErrorText("Soit le code d'examen est invalide soit vous ne disposer pas de permission");
           // effacer la table et la rendre invisible.
           setVisibility(false);
           setTableData([]);
@@ -232,7 +232,7 @@ export default function LogsTable(props) {
       setVisibility(true);
       
       var curr_logs=[];
-      // boucle sur la réponse et la stocke dans dans le state mamnager
+      // boucle sur la réponse et la stocker dans le state manager
       for(var i=0;i<response.data.length;i++){
       
         var obj=new Object();
@@ -389,10 +389,10 @@ export default function LogsTable(props) {
                       <TableCell align="left">{row.student_email}</TableCell>
                       <TableCell align="right">{row.tab_change_count}</TableCell>
                       <TableCell align="right">{row.key_press_count}</TableCell>
-                      <TableCell align="left">{row.face_not_visible === true? "Yes" : "No"}</TableCell>
-                      <TableCell align="left">{row.multiple_faces_found === true ? "Yes" : "No"}</TableCell>
-                      <TableCell align="left">{row.mobile_found === true ?"Yes" : "No"}</TableCell>
-                      <TableCell align="left">{row.prohibited_object_found === true ?"Yes" : "No"}</TableCell>
+                      <TableCell align="left">{row.face_not_visible === true? "Oui" : "Non"}</TableCell>
+                      <TableCell align="left">{row.multiple_faces_found === true ? "Oui" : "Non"}</TableCell>
+                      <TableCell align="left">{row.mobile_found === true ?"Oui" : "Non"}</TableCell>
+                      <TableCell align="left">{row.prohibited_object_found === true ?"Oui" : "Non"}</TableCell>
                       
                       
                     </TableRow>

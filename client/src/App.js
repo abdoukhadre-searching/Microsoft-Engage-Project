@@ -8,7 +8,6 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./actions/authActions";
 
-import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
@@ -20,7 +19,7 @@ import GlobalStyle from './globalStyles';
 
 // Vérification de la présence du token en permettant à l'utilisateur de rester connecté
 if (localStorage.jwtToken) {
-  // Définir le token d'authentification au niveau du header
+  // Définir le token d'authentification au niveau du Header
   const token = localStorage.jwtToken;
   setAuthToken(token);
   // Décoder le token et obtenir les informations sur l'utilisateur
@@ -47,9 +46,6 @@ class App extends Component {
       <Provider store={store}>
         <Router>
         <GlobalStyle />
-          <div className="App" >
-            <Navbar />
-            
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
@@ -57,7 +53,6 @@ class App extends Component {
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <Route exact path="/test" component={TestPage} />
             </Switch>
-          </div>
         </Router>
       </Provider>
     );

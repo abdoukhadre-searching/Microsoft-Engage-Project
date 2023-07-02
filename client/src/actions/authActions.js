@@ -29,8 +29,8 @@ export const registerUser = (userData, history) => dispatch => {
 
 /**
  * Logs in the user by calling API to the backend, recieves token, decodes
- * il utilise jwt_decode, enregistre le jeton dans le stockage local et les en-têtes d'authentification, définit l'utilisateur actuel
- * 
+ * il utilise jwt_decode, enregistre le jeton dans le stockage local et les en-têtes d'authentification,
+  définit l'utilisateur actuel
  * @param {Object} userData 
  * 
  */
@@ -38,8 +38,6 @@ export const loginUser = userData => dispatch => {
   axios
     .post("/api/users/login", userData)
     .then(res => {
-      
-
       const { token } = res.data;
       // Placer le token dans localStorage
       localStorage.setItem("jwtToken", token);
@@ -82,7 +80,7 @@ export const setUserLoading = () => {
 export const logoutUser = () => dispatch => {
   // Retirer le token du localStorage
   localStorage.removeItem("jwtToken");
-  // Supprimer dan sl'en-tête auth pour les demandes futures
+  // Supprimer dans l'en-tête auth pour les demandes futures
   setAuthToken(false);
   // Définir l'utilisateur actuel comme un objet vide {}, ce qui donnera la valeur false à isAuthenticated.
   dispatch(setCurrentUser({}));

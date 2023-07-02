@@ -7,13 +7,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DateTimePicker from '@mui/lab/DateTimePicker';
 import swal from 'sweetalert';
 import { logoutUser } from "../../actions/authActions";
 import LogsTable from "./LogsTable.js"
 import { connect } from "react-redux";
+import DatePicker from 'react-date-picker';
+
 
 function ProfDashboard(props) {
   const [examDialogOpen, setExamDialogOpen] = useState(false);
@@ -80,7 +79,7 @@ function ProfDashboard(props) {
           return;
       }
       if(duration === 0){
-          setErrorText("Duration cannot be 0");
+          setErrorText("Durée doit pas etre vide");
           return;
       }
       if(exam_code===""){
@@ -88,10 +87,10 @@ function ProfDashboard(props) {
           return;
       }
       var current_date_time = new Date();
-      // if(date_time_start< current_date_time){
-      //   setErrorText("Please select a date and time of the future");
-      //   return;
-      // }
+      if(date_time_start< current_date_time){
+        setErrorText("Please select a date and time of the future");
+        return;
+      }
       axios.post('/api/exams/createExam', {
           name: name,
           exam_link: exam_link,
@@ -173,18 +172,26 @@ function ProfDashboard(props) {
             
             <Dialog open={examDialogOpen} onClose={closeExamDialog} aria-labelledby="form-dialog-title" repositionOnUpdate={false}
             style={{ padding: '10px 10px 10px 10px' }}>
-            <DialogTitle id="form-dialog-title">Créer examen</DialogTitle>
+            <DialogTitle id="form-dialog-title" >Créer examen</DialogTitle>
             <DialogContent margin="20px" style={{ padding: "30px" }}>
               <DialogContentText>
                   Renseigner les details de l'examen. Appuyer sur Generer pour generer un code et partager le avec vos etudinats ou eleves ou collaborateurs.
               </DialogContentText>
+
+              <br />
+              <div>
+                 <DatePicker
+                    onChange={(e)=> setDateTimeStart(e.target.value)}
+                    value={date_time_start}
+                 />
+              </div>
+
               <TextField
-                  autoFocus
                   padding="10px"
                   margin="dense"
                   variant="standard"
                   id="name"
-                  label="Exam Name"
+                  label="Titre de l'examen"
                   type="text"
                   fullWidth
                   required={true}
@@ -194,7 +201,7 @@ function ProfDashboard(props) {
               <TextField
                   id="examLink"
                   name="examLink"
-                  label="Exam Link"
+                  label="Lien examen"
                   margin="dense"
                   variant="standard"
                   value={exam_link}
@@ -203,21 +210,11 @@ function ProfDashboard(props) {
                   fullWidth
               />
               {/* <LocalizationProvider dateAdapter={AdapterDateFns}> */}
-                  <DateTimePicker
-                      renderInput={(props) => <TextField {...props} />}
-                      label="DateTimePicker"
-                      value={date_time_start}
-                      margin="dense"
-                      variant="standard"
-                      onChange={(newValue) => {
-                      setDateTimeStart(newValue);
-                      }}
-                  />
               {/* </LocalizationProvider> */}
               <TextField
                   id="duration"
                   name="duration"
-                  label="Exam duration (minutes)"
+                  label="Durée de l'examen  (minutes)"
                   margin="dense"
                   variant="standard"
                   value={duration}
@@ -229,7 +226,7 @@ function ProfDashboard(props) {
               <TextField
                   id="exam_code"
                   name="exam_code"
-                  label="Exam Code"
+                  label="Code examen"
                   margin="dense"
                   variant="standard"
                   value={exam_code}
@@ -243,7 +240,7 @@ function ProfDashboard(props) {
               </DialogContent>
               <DialogActions>
               <Button onClick={closeExamDialog} color="secondary">
-                  Fermer    
+                  Annuler
               </Button>
               <Button onClick={createExam} color="primary">
                   Enregistrer

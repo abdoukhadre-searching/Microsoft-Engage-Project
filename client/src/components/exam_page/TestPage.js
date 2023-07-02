@@ -6,8 +6,9 @@ import swal from 'sweetalert';
 import "./ExamPage.css";
 import { Redirect, useHistory } from "react-router-dom";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
-export default function TestPage(props){
+export default function TestPage(props) {
 
   const [student_name, setStudentName] = useState(props.location.state.student_name);
   const [student_email, setStudentEmail] = useState(props.location.state.student_email);
@@ -97,9 +98,7 @@ export default function TestPage(props){
     if (document.hidden) {
         // the page is hidden
         setTabChange(tab_change+1);
-        swal("Changement de fenetre détecté", "Cette Action a été détectée", "error");
-        
-        
+        swal("Changement de fenetre détecté", "Cette Action a été enregistrée", "error");
     } else {
       // the page is visible
     }
@@ -130,9 +129,49 @@ export default function TestPage(props){
   }
 
   useEffect(() => {
+
+      // on effectue le binding to dbclick avec le mode fullscreen en reactivation
+      document.addEventListener("dblclick", () => {
+        document.documentElement.requestFullscreen()
+            .then(
+                Swal.fire({
+                      title: "Réactivation du mode Plein Ecran",
+                      text: "Ne la quitter en aucun cas durant l'examen",
+                      type: "info"
+                    })
+            )
+            .catch((e) => console.log(e.error))
+      })
+      // on track le mode fullscreen lorsqu'il est en off
+      document.addEventListener('fullscreenchange', () => {
+                  if (!document.fullscreenElement) {
+                       Swal.fire({
+                            title: "Vous avez Désactivé le Mode Plein Ecran",
+                            text: "Cette action est enregistée dans vos logs. ",
+                            confirmButtonText: " Poursuivre l'examen ?",
+                            type: "error",
+                            imageUrl: 'https://i.gifer.com/UOu.gif',
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            width: 600,
+                            color: '#716add',
+                            backdrop: `
+                                rgba(150,0,0,0.4)
+                                url("https://i.pinimg.com/originals/ec/c0/15/ecc015d4e89f77b435df3cd81928ad48.gif")
+                                right top
+                                no-repeat                        `
+                      }).then((result) => {
+                          console.log("on check result value content: ", result)
+                          if (result.value == true) {
+                            Swal.fire("Faite un Double click sur l'ecran", 'Pour retournez en mode fullscreen', 'success')
+                          }
+                      })
+                  }
+      })
     
     // Initialising all the event handlers when the page loads
     document.addEventListener("visibilitychange", handleVisibilityChange, false);
+
     document.addEventListener('contextmenu', function (e) {
         e.preventDefault();
       }, false);
@@ -141,7 +180,7 @@ export default function TestPage(props){
     if(!checkedPrevLogs){
       getPreviousLogs();
       setCheckedPrevLogs(true);
-  }
+    }
 
     // Removing all event handlers when the page exits
     return function cleanup() {
@@ -150,6 +189,10 @@ export default function TestPage(props){
         e.preventDefault();
       }, false);
       document.removeEventListener('keydown',(event)=>handleKeyPress(event), false);
+      // On enleve le listener sur le mode plein ecran
+      document.removeEventListener('fullscreenchange', function (e) {
+         e.preventDefault();
+      }, false)
     }
   })
 
@@ -195,21 +238,22 @@ export default function TestPage(props){
   return (
       <div style={{ height: "100%"}} className="my_container" id="my_container">
     
-
       <div className="detect">
         <Detection MobilePhone={update_mobile_phone_found} ProhibitedObject={update_prohibited_object_found} FaceNotVisible={update_face_not_visible} MultipleFacesVisible={update_multiple_faces_visible}/>
-        
       </div>
 
       <br/>
       <div className="name">
         <h6 align="left">Nom:  <span style={{ fontSize: '20px' }} > {student_name}</span></h6>
-        <h6 align="left">ID de l'Examen:  <span style={{ fontSize: '20px' }} > {exam_id}</span></h6>
+        <h6 align="left">ID de l'Examen: <span style={{ fontSize: '20px' }} > {exam_id} </span></h6>
       </div>
 
       <div className="time_rem">
-        <p>Timer: {minutes === 0 && seconds === 1 ? null : <h1 align="center" style={{ fontSize: '69px' }}>  {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
-        } </p>
+        <p>Timer:
+            {
+                minutes === 0 && seconds === 1 ? null : <h1 align="center" style={{ fontSize: '69px' }}>  {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
+            }
+        </p>
       </div>
 
       <div className="instructions">
@@ -220,11 +264,11 @@ export default function TestPage(props){
           <Button
             style={{ fontSize: '15px' }}
             variant="contained"
-            color="primary"
+            color="danger"
             size="medium"
             onClick={handleSubmit}>
             Quitter l'Examen
-            </Button>
+          </Button>
         </center>
         </div>
         
